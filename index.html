@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK Barangay Bagtas | Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="brand">
+        <div class="logo">SK</div>
+        <div>
+            <h2>SK BAGTAS</h2>
+            <small>Barangay Management</small>
+        </div>
+    </div>
+
+    <div class="nav-menu">
+        <button class="nav active"
+                onclick="showPage('dashboard', this)">
+            ▦ Dashboard
+        </button>
+
+        <button class="nav"
+                onclick="showPage('inventory', this)">
+            ▤ Inventory
+        </button>
+
+        <button class="nav"
+                onclick="showPage('schedule', this)">
+            ▦ Scheduling
+        </button>
+
+        <button class="nav"
+                onclick="showPage('request', this)">
+            ▣ Material Requests
+        </button>
+
+        <button class="nav"
+                onclick="showPage('records', this)">
+            ☷ Records
+        </button>
+    </div>
+
+    <div class="profile">
+        <div class="avatar">SK</div>
+        <div>
+            <strong>SK Official</strong>
+            <small>Administrator</small>
+        </div>
+    </div>
+</nav>
+
+<div class="main">
+    <header>
+        <div>
+            <h3 id="pageTitle">Dashboard</h3>
+            <p>SK Barangay Bagtas Management System</p>
+        </div>
+        <div class="profile">
+            <div class="avatar">SK</div>
+            <div>
+                <strong>SK Official</strong>
+                <small>Administrator</small>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page">
+            <div class="welcome">
+                <div>
+                    <span class="tag">OFFICIAL PORTAL</span>
+                    <h1>Welcome to SK Bagtas</h1>
+                    <p>Manage resources, monitor inventory, and organize activities efficiently.</p>
+                </div>
+                <button onclick="openPage('schedule')">+ New Schedule</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span>Total Materials</span>
+                    <h2 id="itemCount">3</h2>
+                    <small>Registered inventory items</small>
+                </div>
+                <div class="stat">
+                    <span>Scheduled Activities</span>
+                    <h2 id="scheduleCount">0</h2>
+                    <small>Recorded activities</small>
+                </div>
+                <div class="stat">
+                    <span>Pending Requests</span>
+                    <h2 id="requestCount">0</h2>
+                    <small>Awaiting review</small>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Inventory Overview</h3>
+                        <p>Current available materials</p>
+                    </div>
+                    <button class="outline" onclick="openPage('inventory')">View Inventory</button>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr><th>Material</th><th>Quantity</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="dashboardInventory">
+                        <tr><td>Chairs</td><td>50</td><td><span class="status available">Available</span></td></tr>
+                        <tr><td>Tables</td><td>10</td><td><span class="status available">Available</span></td></tr>
+                        <tr><td>Tents</td><td>5</td><td><span class="status available">Available</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel">
+                <h3>Quick Actions</h3>
+                <div class="quick-actions">
+                    <button onclick="openPage('inventory')">+ Add Materials</button>
+                    <button onclick="openPage('schedule')">+ Schedule Activity</button>
+                    <button onclick="openPage('request')">+ Submit Request</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- INVENTORY -->
+        <section id="inventory" class="page hidden">
+            <div class="section-heading">
+                <div>
+                    <h1>Inventory Management</h1>
+                    <p>Monitor and manage SK equipment and supplies.</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Register Material</h3>
+                <form id="inventoryForm" class="form-grid">
+                    <div>
+                        <label>Material Name</label>
+                        <input id="itemName" placeholder="e.g. Chairs" required>
+                    </div>
+                    <div>
+                        <label>Quantity</label>
+                        <input id="itemQuantity" type="number" min="1" placeholder="Enter quantity" required>
+                    </div>
+                    <button type="submit">Add Material</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Inventory List</h3>
+                <table>
+                    <thead><tr><th>Material</th><th>Quantity</th><th>Status</th></tr></thead>
+                    <tbody id="inventoryList"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SCHEDULING -->
+        <section id="schedule" class="page hidden">
+            <h1>Materials Scheduling</h1>
+            <p>Organize SK activities and their required materials.</p>
+
+            <div class="panel">
+                <h3>Create Schedule</h3>
+                <form id="scheduleForm">
+                    <label>Activity Name</label>
+                    <input id="activity" placeholder="Enter activity name" required>
+
+                    <label>Activity Date</label>
+                    <input id="date" type="date" required>
+
+                    <label>Materials Needed</label>
+                    <input id="materials" placeholder="Chairs, tables, tents..." required>
+
+                    <button type="submit">Save Schedule</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Activity Schedule</h3>
+                <table>
+                    <thead><tr><th>Activity</th><th>Date</th><th>Materials</th></tr></thead>
+                    <tbody id="scheduleList"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- REQUESTS -->
+        <section id="request" class="page hidden">
+            <h1>Material Requests</h1>
+            <p>Submit equipment requests for SK programs and activities.</p>
+
+            <div class="panel">
+                <form id="requestForm">
+                    <label>Requester's Name</label>
+                    <input id="requester" placeholder="Full name" required>
+
+                    <label>Material</label>
+                    <select id="requestedItem" required>
+                        <option value="">Select material</option>
+                        <option>Chairs</option>
+                        <option>Tables</option>
+                        <option>Tents</option>
+                    </select>
+
+                    <label>Quantity</label>
+                    <input id="requestedQuantity" type="number" min="1" placeholder="Quantity" required>
+
+                    <label>Purpose</label>
+                    <textarea id="purpose" placeholder="Purpose of the request" required></textarea>
+
+                    <button type="submit">Submit Request</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- RECORDS -->
+        <section id="records" class="page hidden">
+            <h1>Request Records</h1>
+            <p>Track submitted requests and their current status.</p>
+
+            <div class="panel">
+                <table>
+                    <thead>
+                        <tr><th>Requester</th><th>Material</th><th>Quantity</th><th>Purpose</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="requestList"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CONFIRMATION -->
+        <section id="confirmation" class="page hidden">
+            <div class="confirmation">
+                <div class="check">✓</div>
+                <h2>Action Completed</h2>
+                <p id="message">Your action was completed successfully.</p>
+                <button onclick="openPage('dashboard')">Return to Dashboard</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <strong>SK Barangay Bagtas</strong>
+        <span>Inventory Monitoring & Materials Scheduling System</span>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
